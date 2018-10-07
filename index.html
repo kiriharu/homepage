@@ -1,77 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <title>Home</title>
+    <title>Welcome home, master.</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="favicon.png" rel="shortcut icon" type="image/x-icon" />
 </head>
 <body>
     <div id="search">
-        <input id="search-field" type="text" name="search-field" onkeypress="return search(event)"/>
+        <input id="search-field" type="text" name="search-field"/>
     </div>
     <div class="container">
         <div id="clock"></div>
-        <div class="weather-container">
+        <div class="text-container">
             <div class="row">
-                <div id="weather-description"class="inline"></div>
-                <div class="inline">-</div>
+                <div id="text-description" class="inline"></div>
+                <div class="inline" id="randtext">  </div>
                 <div id="temp" class="inline"></div>
             </div>
         </div>
         <div class="bookmark-container">
             <div class="bookmark-set">
-                <div class="bookmark-title">Daily</div>
+                <div class="bookmark-title">[soc]</div>
                 <div class="bookmark-inner-container">
-                    <a class="bookmark" href="https://inbox.google.com/" target="_blank">Inbox</a>
+                    <a class="bookmark" href="https://reddit.com/" target="_blank">Reddit</a>
+                    <a class="bookmark" href="https://vk.com/" target="_blank">VKontakte</a>
+                    <a class="bookmark" href="https://2ch.hk/b/" target="_blank">2ch</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">[work]</div>
+                <div class="bookmark-inner-container">
                     <a class="bookmark" href="https://github.com/" target="_blank">Github</a>
-                    <a class="bookmark" href="https://drive.google.com/" target="_blank">Drive</a>
+                    <a class="bookmark" href="https://trello.com/" target="_blank">Trello</a>
                 </div>
             </div>
             <div class="bookmark-set">
-                <div class="bookmark-title">Media</div>
+            <div class="bookmark-title">[r]</div>
                 <div class="bookmark-inner-container">
-                    <a class="bookmark" href="https://youtube.com" target="_blank">Youtube</a>
-                    <a class="bookmark" href="https://netflix.com" target="_blank">Netflix</a>
-                    <a class="bookmark" href="https://crunchyroll.com" target="_blank">Crunchyroll</a>
-                    <a class="bookmark" href="https://" target="_blank">Amazon Prime</a>
-                </div>
-            </div>
-            <div class="bookmark-set">
-            <div class="bookmark-title">Reddit</div>
-                <div class="bookmark-inner-container">
-                    <a class="bookmark" href="https://reddit.com/r/overwatch" target="_blank">/r/overwatch</a>
-                    <a class="bookmark" href="https://reddit.com/r/pcmasterrace" target="_blank">/r/pcmasterrace</a>
-                    <a class="bookmark" href="https://reddit.com/r/me_irl" target="_blank">/r/me_irl</a>
-                    <a class="bookmark" href="https://reddit.com/r/battlestations" target="_blank">/r/battlestations</a>
+                    <a class="bookmark" href="https://www.youtube.com/" target="_blank">YouTube</a>
                     <a class="bookmark" href="https://reddit.com/r/unixporn" target="_blank">/r/unixporn</a>
-                    
                     <a class="bookmark" href="https://reddit.com/r/news" target="_blank">/r/news</a>
-                </div>
-            </div>
-            <div class="bookmark-set">
-                <div class="bookmark-title">Social</div>
-                <div class="bookmark-inner-container">
-                    <a class="bookmark" href="https://twitter.com" target="_blank">Twitter</a>
-                    <a class="bookmark" href="https://facebook.com" target="_blank">Facebook</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        var textarr = ["私はすぐに死ぬだろう。", "それは働く時間です！", "学ぶ時間です！", "すべてが可能です。", "私は、春が大好き！", "Haru, 私はあなたを愛している", "私を助けて！"];
+        var rand = Math.floor(Math.random() * textarr.length);
+        var randtext = textarr[rand]
+        document.querySelector("#randtext").innerHTML = randtext;
+
         // Search on enter key event
-        function search(e) {
-            if (e.keyCode == 13) {
+        document.getElementById("search-field").addEventListener("keydown",  event => { 
+            if (event.keyCode === 13) {
                 var val = document.getElementById("search-field").value;
                 window.open("https://google.com/search?q=" + val);
             }
-        }
+        });
         // Get current time and format
-        function getTime() {
+        getTime = () => {
             let date = new Date(),
                 min = date.getMinutes(),
                 sec = date.getSeconds(),
@@ -84,22 +75,6 @@
         }
 
         window.onload = () => {
-            let xhr = new XMLHttpRequest();
-            // Request to open weather map
-            xhr.open('GET', 'http://api.openweathermap.org/data/2.5/weather?id=4737316&units=imperial&appid=e5b292ae2f9dae5f29e11499c2d82ece');
-            xhr.onload = () => {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        let json = JSON.parse(xhr.responseText);
-                        console.log(json);
-                        document.getElementById("temp").innerHTML = json.main.temp.toFixed(0) + " F";
-                        document.getElementById("weather-description").innerHTML = json.weather[0].description;
-                    } else {
-                        console.log('error msg: ' + xhr.status);
-                    }
-                }
-            }
-            xhr.send();
             // Set up the clock
             document.getElementById("clock").innerHTML = getTime();
             // Set clock interval to tick clock
@@ -109,10 +84,10 @@
         }
 
         document.addEventListener("keydown", event => {
-            if (event.keyCode == 32) {          // Spacebar code to open search
+            if (event.keyCode == 32) {          // Пробел откроет полноэкранный поиск
                 document.getElementById('search').style.display = 'flex';
                 document.getElementById('search-field').focus();
-            } else if (event.keyCode == 27) {   // Esc to close search
+            } else if (event.keyCode == 27) {   // А esc закроет его!
                 document.getElementById('search-field').value = '';
                 document.getElementById('search-field').blur();
                 document.getElementById('search').style.display = 'none';

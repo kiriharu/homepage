@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 
 body {
-    background-color: #5F4B8B;
+    background-color: #212121;
     margin: 0px;
 }
 
@@ -50,7 +50,7 @@ body {
     text-align: center;
 }
 
-.weather-container {
+.text-container {
     width: 30%;
     background-color: #272727;
     padding: 1em;
@@ -99,14 +99,14 @@ body {
     margin: 0em .5em;
 }
 .bookmark-inner-container {
-    overflow-y: scroll;
+    overflow-y: hidden;
     height: 80%;
     vertical-align: top;
 }
 .bookmark-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #fff;
+    color: #eeffff;
     margin: 0em 0em .35em 0em;
 }
 .bookmark {

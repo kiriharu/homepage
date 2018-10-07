@@ -1,4 +1,5 @@
-# [Homepage](https://danggoodcode.com/startpage)
-Homepage avaliable for use now at danggoodcode.com/startpage
+Форкнуто с  Jaredk3nt/homepage
+Изменения: 
+Темный бекграунд, блоки больше не прокручиваются, вместо погоды выводится рандомные слова на японском.
 
-![homepage](https://i.redd.it/cbnzq36zj3601.gif)
+На пробел открывается поиск, на esc - он отключается. 
